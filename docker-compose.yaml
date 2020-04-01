@@ -1,0 +1,11 @@
+version: '3'
+services:
+  mex:
+    container_name: mex
+    build: ${PWD}
+    image: mex:latest
+    ports:
+      - '9000:9000'
+    environment:
+      - TMDB_API_KEY=${TMDB_API_KEY}
+      - TVDB_API_KEY=${TVDB_API_KEY}

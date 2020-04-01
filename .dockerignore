@@ -1,0 +1,13 @@
+# Directories not needed in the Docker build
+.git
+.idea
+**/node_modules
+**/dist
+
+# Files not needed in the Docker build
+Dockerfile
+environment.sh
+LICENSE
+mex
+Makefile
+README.md

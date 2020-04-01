@@ -1,0 +1,8 @@
+---
+server:
+  port: 9000
+clients:
+  # API keys are not included in the github repository. Please request keys
+  # from the URLs listed below, then replace the URL with the API key created.
+  tmdb_api_key: "https://developers.themoviedb.org/3/getting-started/introduction"
+  tvdb_api_key: "https://www.thetvdb.com/member/api"

@@ -1,0 +1,54 @@
+<p>
+    Displaying {{results.length}} results
+</p>
+<div class="clr-row">
+    <div class="clr-col-3"  *ngFor="let result of sortedResults()">
+        <a (click)="showDetails(result)" class="card clickable">
+            <div class="card-block">
+                <div class="card-img" *ngIf="result.posterUri !== ''">
+                    <img src="{{result.posterUri}}" alt="thumbnail"/>
+                </div>
+                <div class="card-title">
+                    {{result.getTitle()}}
+                </div>
+                <div class="card-text">
+                    {{result.getShortOverview()}}
+                </div>
+            </div>
+        </a>
+    </div>
+</div>
+
+<clr-modal [(clrModalOpen)]="detailsModalVisible" [clrModalSize]="'xl'" [clrModalClosable]="false">
+    <div class="modal-body">
+        <div style="float:left;">
+            <img alt="thumbnail" src="{{details.posterUri}}" style="max-width: 300px;"/>
+        </div>
+        <div style="margin-left: 320px;">
+            <h3>{{details.getTitle()}}</h3>
+            <p>{{details.overview}}</p>
+            <clr-accordion *ngIf="details.hasEpisodes()" style="margin-top:0.75rem">
+                <clr-accordion-panel *ngFor="let season of details.getSeasons()">
+                    <clr-accordion-title>Season {{season}}</clr-accordion-title>
+                    <clr-accordion-description><button class="btn btn-sm btn-link">Download</button></clr-accordion-description>
+                    <clr-accordion-content>
+                        <div class="clr-row" *ngFor="let episode of details.getEpisodes(season)">
+                            <div class="clr-col-2">Episode {{episode.episode}}</div>
+                            <div class="clr-col">{{episode.name}}</div>
+                            <div class="clr-col-2"><button class="btn btn-sm btn-link">Download</button></div>
+                        </div>
+                    </clr-accordion-content>
+                </clr-accordion-panel>
+            </clr-accordion>
+            <p *ngIf="details.hasLinks()">
+                <span *ngFor="let link of details.links">
+                    <a class="label" href="{{link.url}}" target="_blank">{{link.name}}</a>
+                </span>
+            </p>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline" (click)="detailsModalVisible = false">Cancel</button>
+        <button type="button" class="btn btn-primary" (click)="detailsModalVisible = false">Download</button>
+    </div>
+</clr-modal>
