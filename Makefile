@@ -1,13 +1,14 @@
 .PHONY: all docker mex ui
 .SILENT: dockerList
 
+HASH=$(shell git rev-parse --short HEAD)
+
 # Dummy target that lets mex run locally.
 all: ui mex
 
 # Build the docker container
 dockerBuild:
-	HASH=$(git rev-parse --short HEAD)
-	docker build -t mex:latest ${PWD}
+	docker build -t mex:latest -t mex:${HASH} ${PWD}
 
 # List the files in the docker container. Useful for verifying that
 # everything is in the expected locations.
